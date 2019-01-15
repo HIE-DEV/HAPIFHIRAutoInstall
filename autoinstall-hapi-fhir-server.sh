@@ -13,10 +13,12 @@ read -e -p "Please specify install location without end slash. EG /opt: " -i "/o
 read -e -p "Please specify port not in use by any other service to open the HAPI FHIR server on, EG 8090: " -i "8090" port
 read -e -p "If your system uses firewalld (AKA firewall-cmd), would you like me to automatically open the port and reload the firewall? y/n: " -i "n" openfirewall
 
-cd "$location"
-rm "./hapi-fhir-$version-cli.zip"
+#Delete a pre-existing start script if it exists
+file="./hapi-fhir-$version-cli.zip"
+[ -e file ] && rm file
+
 wget "https://github.com/jamesagnew/hapi-fhir/releases/download/v$version/hapi-fhir-$version-cli.zip"
-unzip "hapi-fhir-$version-cli.zip"
+unzip -o "hapi-fhir-$version-cli.zip"
 
 localip=$(hostname -I)
 
@@ -33,5 +35,5 @@ file="./start-hapi-fhir-server.sh"
 #Write an updated version with the new settings
 echo "nohup \"java -jar hapi-fhir-cli.jar run-server -v $stuversion -p $port --allow-external-refs\" &" > ./start-hapi-fhir-server.sh
 
-nohup "bash ./start-hapi-fhir-server.sh" & 
+nohup "bash" "./start-hapi-fhir-server.sh" "&"
 echo "This may appear as an error, but this script's best guess for the local URL for your HAPI FHIR server is at: http://$localip:$port"
