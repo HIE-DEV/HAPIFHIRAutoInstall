@@ -13,8 +13,10 @@ read -e -p "Please specify install location without end slash. EG /opt: " -i "/o
 read -e -p "Please specify port not in use by any other service to open the HAPI FHIR server on, EG 8090: " -i "8090" port
 read -e -p "If your system uses firewalld (AKA firewall-cmd), would you like me to automatically open the port and reload the firewall? y/n: " -i "n" openfirewall
 
+cd "$location"
+
 #Delete a pre-existing .zip if it exists
-file="./hapi-fhir-$version-cli.zip"
+file="hapi-fhir-$version-cli.zip"
 [ -e file ] && rm -f file
 
 wget "https://github.com/jamesagnew/hapi-fhir/releases/download/v$version/hapi-fhir-$version-cli.zip"
@@ -29,7 +31,7 @@ if [ "$openfirewall" == "y" ]; then
 fi
 
 #Delete a pre-existing start script if it exists
-file="./start-hapi-fhir-server.sh"
+file="$location/start-hapi-fhir-server.sh"
 [ -e file ] && rm -f file
 
 #Write an updated version with the new settings
