@@ -43,4 +43,4 @@ echo "nohup java -jar hapi-fhir-cli.jar run-server -v $stuversion -p $port --all
 
 echo "This may appear as an error, but this script's best guess for the local URL for your HAPI FHIR server is at: http://$localip_notrailspace:$port"
 
-bash ./start-hapi-fhir-server.sh
+bash "$location/start-hapi-fhir-server.sh"
