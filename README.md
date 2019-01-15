@@ -10,7 +10,7 @@ To run:
 
 To download the file to a CLI-only Linux server box in your current directory, with curl installed, run:
 
-    curl -L https://github.com/HIE-DEV/HAPIFHIRAutoInstall/archive/master.zip > ./master.zip && unzip master.zip
+    curl -L https://github.com/HIE-DEV/HAPIFHIRAutoInstall/archive/master.zip > ./master.zip && unzip -o master.zip
     
 Then finally:
 
