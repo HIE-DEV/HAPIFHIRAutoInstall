@@ -33,7 +33,7 @@ file="./start-hapi-fhir-server.sh"
 [ -e file ] && rm file
 
 #Write an updated version with the new settings
-echo "nohup \"java -jar hapi-fhir-cli.jar run-server -v $stuversion -p $port --allow-external-refs\" &" > ./start-hapi-fhir-server.sh
+echo "nohup java -jar hapi-fhir-cli.jar run-server -v $stuversion -p $port --allow-external-refs &" > ./start-hapi-fhir-server.sh
 
 nohup "bash" "./start-hapi-fhir-server.sh" "&"
 echo "This may appear as an error, but this script's best guess for the local URL for your HAPI FHIR server is at: http://$localip:$port"
