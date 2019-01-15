@@ -16,11 +16,12 @@ read -e -p "If your system uses firewalld (AKA firewall-cmd), would you like me 
 cd "$location"
 
 #Delete a pre-existing .zip if it exists
-file="hapi-fhir-$version-cli.zip"
+file="$location/hapi-fhir-$version-cli.zip"
 [ -e file ] && rm -f file
 
-wget "https://github.com/jamesagnew/hapi-fhir/releases/download/v$version/hapi-fhir-$version-cli.zip"
-unzip -o "hapi-fhir-$version-cli.zip"
+curl -L "https://github.com/jamesagnew/hapi-fhir/releases/download/v$version/hapi-fhir-$version-cli.zip" > "$location/hapi-fhir-$version-cli.zip"
+
+unzip -o "$location/hapi-fhir-$version-cli.zip"
 
 localip=$(hostname -I)
 
