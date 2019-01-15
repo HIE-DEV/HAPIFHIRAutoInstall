@@ -19,11 +19,13 @@ cd "$location"
 file="$location/hapi-fhir-$version-cli.zip"
 [ -e file ] && rm -f file
 
+echo "Downloading $version from HAPI FHIR GitHub"
 curl -L "https://github.com/jamesagnew/hapi-fhir/releases/download/v$version/hapi-fhir-$version-cli.zip" > "$location/hapi-fhir-$version-cli.zip"
 
 unzip -o "$location/hapi-fhir-$version-cli.zip"
 
 localip=$(hostname -I)
+localip_notrailspace="$(echo -e "${localip}" | sed -e 's/[[:space:]]*$//')"
 
 if [ "$openfirewall" == "y" ]; then
  	firewall-cmd "--permanent" "--add-port=$port/tcp"
@@ -35,9 +37,10 @@ fi
 file="$location/start-hapi-fhir-server.sh"
 [ -e file ] && rm -f file
 
+echo "Generating startup script at $location/start-hapi-fhir-server.sh"
 #Write an updated version with the new settings
-echo "nohup java -jar hapi-fhir-cli.jar run-server -v $stuversion -p $port --allow-external-refs &" > ./start-hapi-fhir-server.sh
+echo "nohup java -jar hapi-fhir-cli.jar run-server -v $stuversion -p $port --allow-external-refs &" > "$location/start-hapi-fhir-server.sh"
 
-echo "This may appear as an error, but this script's best guess for the local URL for your HAPI FHIR server is at: http://$localip:$port"
+echo "This may appear as an error, but this script's best guess for the local URL for your HAPI FHIR server is at: http://$localip_notrailspace:$port"
 
 bash ./start-hapi-fhir-server.sh
