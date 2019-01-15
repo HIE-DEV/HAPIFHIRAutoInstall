@@ -13,12 +13,19 @@ read -e -p "If your system uses firewalld (AKA firewall-cmd), would you like me 
 cd "$location"
 wget "https://github.com/jamesagnew/hapi-fhir/releases/download/v$version/hapi-fhir-$version-cli.zip"
 unzip "hapi-fhir-$version-cli.zip"
-java -jar hapi-fhir-cli.jar run-server
-nohup "java -jar hapi-fhir-cli.jar run-server -v $stuversion -p $port --allow-external-refs &"
+
+#Delete a pre-existing start script if it exists
+file="./start-hapi-fhir-server.sh"
+[ -e file ] && rm file
+
+#Write an updated version with the new settings
+echo "java -jar hapi-fhir-cli.jar run-server -v $stuversion -p $port --allow-external-refs" > ./start-hapi-fhir-server.sh
+
+nohup "./start-hapi-fhir-server.sh &"
+
 localip=$(hostname -I)
 
-if [ "$
-" == "y" ]; then
+if [ "$openfirewall" == "y" ]; then
  	firewall-cmd "--permanent --add-port=$port/tcp"
 	firewall-cmd "reload"
 	echo "Firewall updated with port $port"
