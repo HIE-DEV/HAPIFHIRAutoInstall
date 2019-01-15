@@ -6,7 +6,7 @@ uid=$(id -u)
 
 read -e -p "Please specify HAPI FHIR version, EG 3.6.0: " -i "3.6.0" version
 read -e -p "Please specify STU/DSTU version in all lowercase, EG dstu3: " -i "dtu3" stuversion
-read -e -p "Please specify install location without end slash. EG /opt" -i "/opt" location
+read -e -p "Please specify install location without end slash. EG /opt: " -i "/opt" location
 read -e -p "Please specify port not in use by any other service to open the HAPI FHIR server on, EG 8090: " -i "8090" port
 read -e -p "If your system uses firewalld (AKA firewall-cmd), would you like me to automatically open the port and reload the firewall? y/n: " -i "n" openfirewall
 
