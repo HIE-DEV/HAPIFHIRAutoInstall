@@ -4,9 +4,7 @@ uid=$(id -u)
 #We don't have root permissions, so we can't install or upgrade anything, so we quit
 [ $uid -ne 0 ] && { echo "Requires root (sudo) to successfully run this script."; exit 1; }
 
-read -p "Please specify HAPI FHIR version, EG 3.6.0: " version
-version=${version:-3.6.0}
-echo $version
+read -e -p "Please specify HAPI FHIR version, EG 3.6.0:" -i "3.6.0" version
 
 echo "Please specify STU/DSTU version in all lowercase, EG dstu3"
 read stuversion
