@@ -1,5 +1,6 @@
 #!/bin/bash
-#v1.1
+
+echo "HAPI FHIR AutoInstaller Version 1.2"
 
 #Do a sudo/root level check
 uid=$(id -u)
@@ -43,4 +44,6 @@ echo "java -jar $location/hapi-fhir-cli.jar run-server -v $stuversion -p $port -
 
 echo "This may appear as an error, but this script's best guess for the local URL for your HAPI FHIR server is at: http://$localip_notrailspace:$port"
 
-nohup "bash" "$location/start-hapi-fhir-server.sh" &
+bash "$location/start-hapi-fhir-server.sh"
+
+echo "Script for starting the server can be found at $location/start-hapi-fhir-server.sh"
