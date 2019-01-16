@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "HAPI FHIR AutoInstaller Version 1.3"
+echo "HAPI FHIR AutoInstaller Version 1.4"
 
 #Do a sudo/root level check
 uid=$(id -u)
@@ -45,10 +45,11 @@ echo "Generating startup script at $location/start-hapi-fhir-server.sh"
 #
 
 java_cmd="java -jar $location/hapi-fhir-cli.jar run-server -v $stuversion -p $port --allow-external-refs"
-nohup_cmd="nohup $java_cmd"
+nohup_cmd="nohup $java_cmd &"
 echo_cmd="echo \"Process already started\""
-check_if_running="$(ps -aux | grep -v \"grep\" | grep \"java -jar $location/hapi-fhir-cli.jar run-server -v dstu3 -p 8090 --allow-external-refs\")"
-output_cmd="if [\"\" != \"$check_if_running\"]; then\n\t$nohup_cmd\nelse\n\techo_cmd\nfi"
+check_if_running='$(ps -aux | grep -v \"grep\" | grep \"$java_cmd\")'
+
+output_cmd="if [\"\" != \"$check_if_running\"]; then\n\t$nohup_cmd\nelse\n\t$echo_cmd\nfi"
 
 echo -e "$output_cmd"> "$location/start-hapi-fhir-server.sh"
 
