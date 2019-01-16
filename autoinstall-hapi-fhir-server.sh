@@ -49,7 +49,7 @@ nohup_cmd="nohup $java_cmd &"
 echo_cmd="echo \"Process already started\""
 check_if_running='$(ps -aux | grep -v \"grep\" | grep \"$java_cmd\")'
 
-output_cmd="if [ \"\" != \"$check_if_running\" ]; then\n\t$nohup_cmd\nelse\n\t$echo_cmd\nfi"
+output_start_cmd="if [ \"\" != \"$check_if_running\" ]; then\n\t$nohup_cmd\nelse\n\t$echo_cmd\nfi"
 
 echo -e "$output_cmd"> "$location/start-hapi-fhir-server.sh"
 
